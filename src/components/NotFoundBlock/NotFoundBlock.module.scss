@@ -1,0 +1,21 @@
+.root {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: max-content;
+  padding: 40px 0;
+  h2 {
+    line-height: 70px;
+    text-align: center;
+    font-size: 40px;
+    span {
+      font-size: 100px;
+      margin-bottom: 50px;
+    }
+  }
+  div {
+    max-width: 160px;
+    // margin: auto;
+    margin: 20px auto 0;
+  }
+}

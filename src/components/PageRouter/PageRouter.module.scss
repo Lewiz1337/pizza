@@ -1,0 +1,41 @@
+.root {
+  // background: red;
+  display: flex;
+  justify-content: center;
+  * {
+    margin: 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    width: 50px;
+    height: 50px;
+    background: #f9f9f9;
+    font-size: 17px;
+    color: black;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.1s ease-in-out;
+    &:hover {
+      background-color: #f4f4f4;
+    }
+  }
+}
+.active {
+  background: #282828;
+
+  a {
+    background-color: #282828;
+    color: white;
+    &:hover {
+      background-color: #282828;
+    }
+  }
+  &:hover {
+    background-color: #282828;
+  }
+}
+.arrow {
+  font-size: 25px;
+  font-weight: 800;
+}
