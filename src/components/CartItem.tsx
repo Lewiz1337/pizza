@@ -1,18 +1,24 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { addItem, deleteItem, minusItem } from '../redux/slices/cartSlice';
+// import {CartItemProps as CartItem } from '../redux/slices/cartSlice';
 
-function CartItem({ title, price, count, id, size, type }) {
+type CartItemProps = {
+  id: string;
+  title: string;
+  type: string;
+  size: string;
+  imageUrl: string;
+  price: number;
+  count: number;
+};
+
+const CartItem: React.FC<CartItemProps> = ({ title, price, count, id, size, type, imageUrl }) => {
   const dispatch = useDispatch();
-
   return (
     <div className="cart__item">
       <div className="cart__item-img">
-        <img
-          className="pizza-block__image"
-          src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
-          alt="Pizza"
-        />
+        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
       </div>
       <div className="cart__item-info">
         <h3>{title}</h3>
@@ -89,6 +95,6 @@ function CartItem({ title, price, count, id, size, type }) {
       </div>
     </div>
   );
-}
+};
 
 export default CartItem;

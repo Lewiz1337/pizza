@@ -1,34 +1,43 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSort, setOrder } from '../redux/slices/filterSlice';
+import { RootState } from '../redux/store';
 
-export const sortType = [
+type SortTypeItem = { name: string; sortProperty: string };
+
+export const sortType: SortTypeItem[] = [
   { name: 'популярности', sortProperty: 'rating' },
   { name: 'цене', sortProperty: 'price' },
   { name: 'алфавиту', sortProperty: 'title' },
 ];
 
-const Sort = () => {
+const Sort: React.FC = React.memo(() => {
   const dispatch = useDispatch();
 
-  const sort = useSelector((state) => state.filter.sort);
-  const orderByDesc = useSelector((state) => state.filter.orderByDesc);
+  const sort = useSelector((state: RootState) => state.filter.sort);
+  const orderByDesc = useSelector((state: RootState) => state.filter.orderByDesc);
 
-  const [show, setShow] = React.useState(false);
+  const [show, setShow] = React.useState<boolean>(false);
 
-  const sortRef = React.useRef();
+  const sortRef = React.useRef<HTMLDivElement>(null);
 
-  const onChangeSort = (id) => {
+  const onChangeSort = (id: number) => {
     dispatch(setSort(sortType[id]));
     setShow(false);
   };
 
   React.useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (!e.path.includes(sortRef.current)) {
+    const handleClickOutside = (event: MouseEvent): void => {
+      const _event = event as MouseEvent & {
+        path: Node[];
+      };
+      if (sortRef.current === null) return;
+
+      if (!_event.path.includes(sortRef.current)) {
         setShow(false);
       }
     };
+
     document.body.addEventListener('click', handleClickOutside);
     return () => {
       document.body.removeEventListener('click', handleClickOutside);
@@ -72,6 +81,6 @@ const Sort = () => {
       )}
     </div>
   );
-};
+});
 
 export default Sort;

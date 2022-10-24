@@ -1,15 +1,33 @@
+import React from 'react';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addItem } from '../../redux/slices/cartSlice';
+import { selectCartItemById } from '../../redux/slices/cartSlice';
+import { Link } from 'react-router-dom';
 
-const PizzaBlock = ({ price = 600, id, imageUrl, title, types, sizes }) => {
+type PizzaBlockProps = {
+  id: string;
+  imageUrl: string;
+  price: number;
+  rating: number;
+  sizes: number[];
+  title: string;
+  types: number[];
+};
+
+const PizzaBlock: React.FC<PizzaBlockProps> = ({
+  price = 600,
+  id,
+  imageUrl,
+  title,
+  types,
+  sizes,
+}) => {
   const [pizzaPrice, setPizzaPrice] = useState(price);
   const [selectedType, setSelectedType] = useState(0);
   const [selectedSize, setSelectedSize] = useState(0);
 
-  const countItem = useSelector((state) =>
-    state.cart.items.find((obj) => String(obj.id) === `${id}-${selectedType}-${selectedSize}`),
-  );
+  const countItem = useSelector(selectCartItemById(`${id}-${selectedType}-${selectedSize}`));
 
   const dispatch = useDispatch();
 
@@ -26,7 +44,7 @@ const PizzaBlock = ({ price = 600, id, imageUrl, title, types, sizes }) => {
     );
   };
 
-  const onChangeSize = (i) => {
+  const onChangeSize = (i: number) => {
     setSelectedSize(i);
     switch (sizes[i]) {
       case 26:
@@ -47,11 +65,13 @@ const PizzaBlock = ({ price = 600, id, imageUrl, title, types, sizes }) => {
   return (
     <div className="pizza-block-wrapper">
       <div className="pizza-block">
-        <img className="pizza-block__image" src={imageUrl} alt={`Pizza_${title}`} />
+        <Link to={'/' + id}>
+          <img className="pizza-block__image" src={imageUrl} alt={`Pizza_${title}`} />
+        </Link>
         <h4 className="pizza-block__title">{title}</h4>
         <div className="pizza-block__selector">
           <ul>
-            {types.map((_, index) => (
+            {types.map((_: number, index: number) => (
               <li
                 key={index}
                 onClick={() => setSelectedType(index)}
@@ -61,7 +81,7 @@ const PizzaBlock = ({ price = 600, id, imageUrl, title, types, sizes }) => {
             ))}
           </ul>
           <ul>
-            {sizes.map((_, index) => (
+            {sizes.map((_: number, index: number) => (
               <li
                 key={index}
                 onClick={() => onChangeSize(index)}

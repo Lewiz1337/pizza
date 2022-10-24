@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: space-between;
     @media (max-width: 820px) {
-      flex-direction: column-reverse;
+      flex-direction: column;
       .header__cart {
         position: fixed;
         right: 50px;
@@ -29,6 +29,9 @@
         .button__delimiter {
           display: none;
         }
+      }
+      .header__logo {
+        margin-bottom: 20px;
       }
     }
   }

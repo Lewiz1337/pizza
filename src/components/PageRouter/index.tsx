@@ -4,10 +4,10 @@ import ReactPaginate from 'react-paginate';
 import { setPage } from '../../redux/slices/filterSlice';
 import { useDispatch } from 'react-redux';
 
-function PageRouter({ pagesCount }) {
+const PageRouter = ({ pagesCount }: { pagesCount: null[] }) => {
   const dispatch = useDispatch();
 
-  const onChangePage = (e) => {
+  const onChangePage = (e: { selected: number }) => {
     dispatch(setPage(e.selected + 1));
   };
 
@@ -19,14 +19,12 @@ function PageRouter({ pagesCount }) {
         nextLabel=">"
         onPageChange={onChangePage}
         activeClassName={styles.active}
-        // onPageActive={console.log(1)}
         pageRangeDisplayed={5}
         pageCount={pagesCount.length}
         previousLabel="<"
-        renderOnZeroPageCount={null}
       />
     </>
   );
-}
+};
 
 export default PageRouter;

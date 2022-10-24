@@ -4,12 +4,13 @@ import CartItem from '../CartItem';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeItems } from '../../redux/slices/cartSlice';
 import EmptyCart from '../EmptyCart';
+import { RootState } from '../../redux/store';
 
-function CartBlock() {
+const CartBlock: React.FC = () => {
   // let items = [];
   const dispatch = useDispatch();
 
-  const { items, totalPrice } = useSelector((state) => state.cart);
+  const { items, totalPrice } = useSelector((state: RootState) => state.cart);
 
   const totalCount = items.reduce((total, obj) => total + obj.count, 0);
 
@@ -137,6 +138,6 @@ function CartBlock() {
       </div>
     </div>
   );
-}
+};
 
 export default CartBlock;
